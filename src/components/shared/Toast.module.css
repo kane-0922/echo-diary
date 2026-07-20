@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   EchoDiary — Toast Styles
+   Slide-in from top, auto-dismiss, semantic variants.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Container (fixed overlay, pointer-events through to page) ── */
+.container {
+  position: fixed;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 380px;
+  pointer-events: none;
+}
+
+/* ── Single Toast ── */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-elevated);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  pointer-events: auto;
+
+  /* Slide-in animation */
+  animation: slideIn 250ms var(--easing-spring) forwards;
+}
+
+/* ── Semantic Variants ── */
+.success {
+  border-left: 3px solid var(--success);
+}
+
+.error {
+  border-left: 3px solid var(--destructive);
+}
+
+.info {
+  border-left: 3px solid var(--accent);
+}
+
+.warning {
+  border-left: 3px solid var(--warning);
+}
+
+/* ── Icon ── */
+.icon {
+  flex-shrink: 0;
+  font-size: var(--text-base);
+  line-height: 1;
+}
+
+/* ── Message ── */
+.message {
+  flex: 1;
+  line-height: var(--leading-normal);
+}
+
+/* ── Dismiss Button ── */
+.dismiss {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.dismiss:hover {
+  color: var(--text-primary);
+  background-color: var(--surface);
+}
+
+/* ── Animation ── */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 639px) {
+  .container {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    left: var(--space-sm);
+    max-width: none;
+  }
+}

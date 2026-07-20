@@ -1,0 +1,27 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   EchoDiary — Sidebar Overlay
+   Semi-transparent backdrop when sidebar drawer is open on mobile.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: var(--z-sidebar-overlay);
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+.overlay.visible {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 1023px) {
+  .overlay {
+    display: block;
+  }
+}

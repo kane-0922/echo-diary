@@ -1,0 +1,156 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   EchoDiary — Design Tokens
+   Merged from: Figma design specs + ui-ux-pro-max design system
+   Style: Soft UI Evolution / Warm Sanctuary
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Responsive Breakpoints (reference only) ── */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* ── Layout ── */
+  --sidebar-width: 320px;
+  --content-max: 1280px;
+
+  /* ═══════════════════════════════════════════════════════════
+     🎨 COLOR PALETTE
+     Warm journal brown + soft green accents + ink violet
+     ═══════════════════════════════════════════════════════════ */
+
+  /* ── Brand ── */
+  --primary: #944a19;
+  --primary-hover: #7c3d14;
+  --primary-light: rgba(148, 74, 25, 0.12);
+
+  /* ── Accent (ui-ux-pro-max recommendation: indigo violet) ── */
+  --accent: #6366F1;
+  --accent-hover: #4F46E5;
+  --accent-light: rgba(99, 102, 241, 0.12);
+
+  /* ── Backgrounds ── */
+  --bg: #fcf9f8;
+  --bg-warm: #FFFBEB;           /* ui-ux-pro-max alt bg */
+  --surface: #f6f3f2;
+  --surface-elevated: #ffffff;
+
+  /* ── Text ── */
+  --text-primary: #1b1c1c;
+  --text-secondary: #54433a;
+  --text-muted: #877369;
+
+  /* ── Borders ── */
+  --border: #F1E8E2;            /* ui-ux-pro-max system border */
+  --border-strong: #e0d6cf;
+
+  /* ── Chat Bubbles ── */
+  --ai-bubble-bg: #fcf9f8;
+  --ai-bubble-border: #4a654f;
+  --ai-bubble-text: #4e6953;
+  --user-bubble-bg: #f6f3f2;
+
+  /* ── Input ── */
+  --input-bg: #f6f3f2;
+
+  /* ── Avatar / Accent ── */
+  --avatar-green: #c9e7cc;
+  --avatar-peach: #ffdbca;
+
+  /* ── Decorative Blurs ── */
+  --orange-blur: rgba(255, 159, 103, 0.1);
+  --green-blur: rgba(201, 231, 204, 0.2);
+
+  /* ── Semantic ── */
+  --success: #4e6953;           /* Echo green */
+  --destructive: #DC2626;       /* ui-ux-pro-max destructive red */
+  --destructive-hover: #B91C1C;
+  --warning: #F59E0B;
+
+  /* ═══════════════════════════════════════════════════════════
+     📏 SPACING SCALE (4pt system)
+     ═══════════════════════════════════════════════════════════ */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* ═══════════════════════════════════════════════════════════
+     🔲 BORDER RADIUS
+     ═══════════════════════════════════════════════════════════ */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
+  /* ═══════════════════════════════════════════════════════════
+     🌑 SHADOWS (Soft UI Evolution)
+     ═══════════════════════════════════════════════════════════ */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 8px 10px rgba(0, 0, 0, 0.04);
+  --shadow-bubble: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-input: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  /* ═══════════════════════════════════════════════════════════
+     🔤 TYPOGRAPHY
+     Heading: Varela Round (ui-ux-pro-max rec)
+     Body: Nunito Sans (matches original plan)
+     CJK fallback: system fonts
+     ═══════════════════════════════════════════════════════════ */
+  --font-heading: 'Varela Round', system-ui, -apple-system, 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  --font-body: 'Nunito Sans', system-ui, -apple-system, 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+
+  /* ── Font Sizes ── */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.75rem;   /* 28px */
+  --text-4xl: 2rem;      /* 32px */
+  --text-5xl: 2.5rem;    /* 40px */
+
+  /* ── Font Weights ── */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* ── Line Heights ── */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 1.75;
+
+  /* ═══════════════════════════════════════════════════════════
+     ✨ ANIMATION
+     ═══════════════════════════════════════════════════════════ */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ═══════════════════════════════════════════════════════════
+     📐 Z-INDEX SCALE
+     ═══════════════════════════════════════════════════════════ */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-sidebar: 100;
+  --z-sidebar-overlay: 90;
+  --z-modal: 200;
+  --z-toast: 300;
+  --z-tooltip: 400;
+}

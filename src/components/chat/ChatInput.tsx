@@ -1,0 +1,186 @@
+// ═══════════════════════════════════════════════════════════════════════
+// EchoDiary — Chat Input
+// Text area + quick actions + generate-diary button.
+// ═══════════════════════════════════════════════════════════════════════
+
+import {
+  useState,
+  useRef,
+  useCallback,
+  type KeyboardEvent,
+} from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useApp } from '../../contexts/AppContext'
+import { generateId, nowISO, todayDate } from '../../utils/idGenerator'
+import type { Message, DiaryEntry } from '../../types'
+import styles from './ChatPage.module.css'
+
+// ── Send Icon ──
+function SendIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 20 20"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 10h14M12 6l4 4-4 4" />
+    </svg>
+  )
+}
+
+function SparkleIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+    >
+      <path d="M10 0l2.5 7.5L20 10l-7.5 2.5L10 20l-2.5-7.5L0 10l7.5-2.5z" />
+      <path
+        d="M7 4l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"
+        opacity="0.5"
+      />
+    </svg>
+  )
+}
+
+interface ChatInputProps {
+  onSend: (content: string) => Promise<void>
+  onGenerateDiary: () => Promise<void>
+  isStreaming: boolean
+  isGeneratingDiary: boolean
+  canGenerateDiary: boolean
+}
+
+export default function ChatInput({
+  onSend,
+  onGenerateDiary,
+  isStreaming,
+  isGeneratingDiary,
+  canGenerateDiary,
+}: ChatInputProps) {
+  const [text, setText] = useState('')
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const isSendingRef = useRef(false)
+
+  const trimmed = text.trim()
+  const canSend = trimmed.length > 0 && !isStreaming && !isSendingRef.current
+
+  // Auto-resize textarea
+  const handleInput = useCallback(() => {
+    const el = textareaRef.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px'
+    setText(el.value)
+  }, [])
+
+  // Send message
+  const handleSend = useCallback(async () => {
+    if (!canSend || isSendingRef.current) return
+    isSendingRef.current = true
+    const content = trimmed
+    setText('')
+    // Reset textarea height
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'
+    }
+    try {
+      await onSend(content)
+    } finally {
+      isSendingRef.current = false
+    }
+  }, [canSend, trimmed, onSend])
+
+  // Enter to send, Shift+Enter for newline
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault()
+        handleSend()
+      }
+    },
+    [handleSend],
+  )
+
+  // Quick actions: fill textarea
+  const handleQuickAction = useCallback((prompt: string) => {
+    setText(prompt)
+    textareaRef.current?.focus()
+  }, [])
+
+  return (
+    <div className={styles.inputArea}>
+      {/* Quick Actions */}
+      <div className={styles.quickActions}>
+        <button
+          className={styles.quickActionBtn}
+          onClick={() => handleQuickAction('帮我回顾一下今天发生了什么')}
+          disabled={isStreaming}
+        >
+          💡 提示我写
+        </button>
+        <button
+          className={styles.quickActionBtn}
+          onClick={() => handleQuickAction('今天我的心情是...')}
+          disabled={isStreaming}
+        >
+          🎭 记录心情
+        </button>
+      </div>
+
+      {/* Input Row */}
+      <div className={styles.inputRow}>
+        <div className={styles.textareaWrap}>
+          <textarea
+            ref={textareaRef}
+            className={styles.textarea}
+            value={text}
+            onChange={handleInput}
+            onKeyDown={handleKeyDown}
+            placeholder="和 Echo 聊聊今天…"
+            rows={1}
+            disabled={isStreaming}
+            aria-label="消息输入框"
+          />
+        </div>
+        <button
+          className={styles.sendBtn}
+          onClick={handleSend}
+          disabled={!canSend}
+          aria-label="发送消息"
+          title="发送 (Enter)"
+        >
+          <SendIcon />
+        </button>
+      </div>
+
+      {/* Generate Diary */}
+      <div className={styles.generateRow}>
+        <button
+          className={styles.generateBtn}
+          onClick={onGenerateDiary}
+          disabled={!canGenerateDiary || isStreaming || isGeneratingDiary}
+        >
+          {isGeneratingDiary ? (
+            <>
+              <span className={styles.generateSpinner} />
+              正在生成…
+            </>
+          ) : (
+            <>
+              <SparkleIcon />
+              生成日记
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}

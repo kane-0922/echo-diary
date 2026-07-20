@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   EchoDiary — Confirm Dialog Styles
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  animation: fadeIn 0.15s ease;
+  padding: var(--space-md);
+}
+
+.dialog {
+  background-color: var(--surface-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 400px;
+  width: 100%;
+  overflow: hidden;
+  animation: scaleIn 0.2s var(--easing-spring);
+}
+
+.header {
+  padding: var(--space-lg) var(--space-lg) var(--space-sm);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.body {
+  padding: var(--space-sm) var(--space-lg) var(--space-lg);
+}
+
+.message {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  padding: 0 var(--space-lg) var(--space-lg);
+}
+
+.btn {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btnCancel {
+  composes: btn;
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btnCancel:hover {
+  background-color: var(--border);
+}
+
+.btnConfirm {
+  composes: btn;
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.btnConfirm:hover {
+  background-color: var(--primary-hover);
+}
+
+.btnDanger {
+  composes: btn;
+  background-color: var(--destructive);
+  color: #fff;
+}
+
+.btnDanger:hover {
+  background-color: var(--destructive-hover);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
