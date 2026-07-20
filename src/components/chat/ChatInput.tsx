@@ -9,10 +9,6 @@ import {
   useCallback,
   type KeyboardEvent,
 } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useApp } from '../../contexts/AppContext'
-import { generateId, nowISO, todayDate } from '../../utils/idGenerator'
-import type { Message, DiaryEntry } from '../../types'
 import styles from './ChatPage.module.css'
 
 // ── Send Icon ──

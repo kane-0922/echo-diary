@@ -20,7 +20,7 @@ const ICONS: Record<string, string> = {
 }
 
 export default function Toast({ toast, onDismiss }: ToastProps) {
-  const timerRef = useRef<ReturnType<typeof setTimeout>>()
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   // Auto-dismiss
   useEffect(() => {

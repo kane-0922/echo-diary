@@ -15,7 +15,7 @@ import {
 import type { AppState, AppAction, ChatSession, Message, DiaryEntry, ToastType } from '../types'
 import { getStorageService } from '../services/storageService'
 import { createAiService, type AiService } from '../ai'
-import { generateId, nowISO, todayDate } from '../utils/idGenerator'
+import { generateId, nowISO } from '../utils/idGenerator'
 
 // ═══════════════════════════════════════════════════════════════════════
 // Initial State

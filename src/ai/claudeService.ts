@@ -6,31 +6,17 @@
 //   2. Implement the AiService interface below using the Anthropic SDK.
 //   3. Replace createAiService() in index.ts.
 //
-// Expected pattern:
-//   import Anthropic from '@anthropic-ai/sdk'
-//   const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true })
-//
-//   chatStream: use client.messages.create({ stream: true })
-//     → SDK stream → yield ChatStreamChunk
-//
-//   generateDiary: use client.messages.create({ stream: false })
-//     with diaryGeneration prompt → parse JSON → DiaryGeneration
-//
-//   generateInsight: same pattern, single message → string
-//
 // ⚠️ Security note:
-//   Same as OpenAI — browser-side API key exposure. Use a backend proxy
-//   for production deployments.
+//   Browser-side API key exposure. Use a backend proxy for production.
 // ═══════════════════════════════════════════════════════════════════════
 
 import type { AiService, ChatStreamChunk, ChatOptions, DiaryGeneration } from './types'
 import type { Mood, Message } from '../types'
 
 export class ClaudeService implements AiService {
-  private apiKey: string
-
-  constructor(apiKey: string) {
-    this.apiKey = apiKey
+  // 预留：真实接入时保存 apiKey 用于初始化 Anthropic 客户端
+  constructor(_apiKey: string) {
+    void _apiKey
   }
 
   async *chatStream(

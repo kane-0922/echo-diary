@@ -13,7 +13,6 @@ import type {
   DiaryGeneration,
 } from './types'
 import { analyzeMessage } from './keywordDict'
-import { generateId, nowISO } from '../utils/idGenerator'
 
 // ═══════════════════════════════════════════════════════════════════════
 // Template Library — 12 scenario-based templates
@@ -410,7 +409,7 @@ export const mockAiService: AiService = {
 
   // ── Insight Generation ──
   async generateInsight(
-    diaryContent: string,
+    _diaryContent: string,
     mood: Mood | null,
   ): Promise<string> {
     await delay(600 + Math.random() * 600)

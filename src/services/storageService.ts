@@ -16,12 +16,15 @@ const STORAGE_KEYS = {
 
 // ── Error Types ──
 export class StorageError extends Error {
+  readonly code: 'QUOTA_EXCEEDED' | 'UNAVAILABLE' | 'CORRUPTED' | 'UNKNOWN'
+
   constructor(
     message: string,
-    public readonly code: 'QUOTA_EXCEEDED' | 'UNAVAILABLE' | 'CORRUPTED' | 'UNKNOWN',
+    code: 'QUOTA_EXCEEDED' | 'UNAVAILABLE' | 'CORRUPTED' | 'UNKNOWN',
   ) {
     super(message)
     this.name = 'StorageError'
+    this.code = code
   }
 }
 

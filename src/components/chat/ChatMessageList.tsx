@@ -31,7 +31,7 @@ export default function ChatMessageList({
   onRetry,
   onPromptClick,
 }: ChatMessageListProps) {
-  const { containerRef, scrollToBottom } = useAutoScroll({
+  const { containerRef } = useAutoScroll({
     trigger: messages.reduce((acc, m) => acc + m.content.length, 0),
   })
 

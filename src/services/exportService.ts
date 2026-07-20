@@ -3,7 +3,7 @@
 // Markdown generation and file download for diary entries.
 // ═══════════════════════════════════════════════════════════════════════
 
-import type { DiaryEntry, Mood } from '../types'
+import type { DiaryEntry } from '../types'
 import { MOOD_EMOJI } from '../types'
 
 /**

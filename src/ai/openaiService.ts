@@ -6,34 +6,18 @@
 //   2. Implement the AiService interface below using the OpenAI SDK.
 //   3. Replace createAiService() in index.ts.
 //
-// Expected pattern:
-//   import OpenAI from 'openai'
-//   const client = new OpenAI({ apiKey, dangerouslyAllowBrowser: true })
-//
-//   chatStream: use client.chat.completions.create({ stream: true })
-//     → ReadableStream → yield ChatStreamChunk
-//
-//   generateDiary: use client.chat.completions.create({ stream: false })
-//     with diaryGeneration prompt → parse JSON → DiaryGeneration
-//
-//   generateInsight: same pattern, single completion → string
-//
 // ⚠️ Security note:
 //   dangerouslyAllowBrowser: true exposes the API key in the browser.
-//   For production, use a backend proxy (Supabase Edge Function, Vercel
-//   Serverless, Cloudflare Worker) instead of direct browser-to-OpenAI calls.
+//   Use a backend proxy for production deployments.
 // ═══════════════════════════════════════════════════════════════════════
 
 import type { AiService, ChatStreamChunk, ChatOptions, DiaryGeneration } from './types'
 import type { Mood, Message } from '../types'
 
-// Placeholder — replace with real OpenAI SDK call when integrating.
-
 export class OpenAiService implements AiService {
-  private apiKey: string
-
-  constructor(apiKey: string) {
-    this.apiKey = apiKey
+  // 预留：真实接入时保存 apiKey 用于初始化 OpenAI 客户端
+  constructor(_apiKey: string) {
+    void _apiKey
   }
 
   async *chatStream(

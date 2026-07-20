@@ -1,25 +1,22 @@
 // ═══════════════════════════════════════════════════════════════════════
 // EchoDiary — AI Service Factory
-// Single entry point for the UI layer. Swap one line to switch between
-// Mock, OpenAI, or Claude implementations.
+// 单一入口点，UI 层通过此函数获取 AI 服务实例。
 // ═══════════════════════════════════════════════════════════════════════
 
 import type { AiService } from './types'
-import { mockAiService } from './mockAiService'
+import { zhipuService } from './zhipuService'
+// import { mockAiService } from './mockAiService'  // 调试时切换回 Mock
 
 /**
- * Create the AI service instance.
+ * 创建 AI 服务实例。
  *
- * Current: Always returns Mock.
+ * 当前：返回智谱 AI 服务（GLM-4.5-Air），通过 /api/ai/chat 代理调用。
  *
- * Future (uncomment and configure):
- *   const config = JSON.parse(localStorage.getItem('echo-ai-config') || '{}')
- *   if (config.provider === 'openai') return new OpenAiService(config.apiKey)
- *   if (config.provider === 'claude') return new ClaudeService(config.apiKey)
- *   return mockAiService // fallback
+ * 切换回 Mock 用于调试：
+ *   取消下面 mockAiService 的注释，注释掉 zhipuService
  */
 export function createAiService(): AiService {
-  return mockAiService
+  return zhipuService
 }
 
 // Re-export convenience

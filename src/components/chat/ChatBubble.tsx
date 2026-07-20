@@ -33,7 +33,6 @@ export default function ChatBubble({
   onRetry,
 }: ChatBubbleProps) {
   const isUser = message.role === 'user'
-  const isAi = message.role === 'ai'
 
   return (
     <div
