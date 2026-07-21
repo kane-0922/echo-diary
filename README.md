@@ -1,4 +1,4 @@
-**在线地址**：echo-diary-iota.vercel.app （注：国内访问需要科学上网）
+**在线地址**：https://echo-diary-iota.vercel.app （注：国内访问需要科学上网）
 
 # EchoDiary — AI 聊天日记
 
