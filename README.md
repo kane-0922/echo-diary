@@ -1,3 +1,5 @@
+**在线地址**：https://echo-diary.chaukane2004.workers.dev （注：国内访问可能需要科学上网）
+
 # EchoDiary — AI 聊天日记
 
 与 AI 伙伴 Echo 聊天，对话自动生成温暖日记。把每天的碎碎念变成值得回味的文字。
@@ -13,15 +15,15 @@
 
 ## 技术栈
 
-| 层面 | 技术 |
-|------|------|
-| 前端框架 | React 19 + TypeScript |
-| 构建工具 | Vite |
-| 路由 | React Router v7 |
-| 样式 | CSS Modules + CSS 自定义属性 |
-| AI 服务 | 智谱 GLM-4.5-Air（兼容 OpenAI 格式） |
-| 数据存储 | localStorage |
-| 部署 | 静态文件 + Edge Function（EdgeOne Pages） / Express 服务器 |
+| 层面     | 技术                                                       |
+| -------- | ---------------------------------------------------------- |
+| 前端框架 | React 19 + TypeScript                                      |
+| 构建工具 | Vite                                                       |
+| 路由     | React Router v7                                            |
+| 样式     | CSS Modules + CSS 自定义属性                               |
+| AI 服务  | 智谱 GLM-4.5-Air（兼容 OpenAI 格式）                       |
+| 数据存储 | localStorage                                               |
+| 部署     | 静态文件 + Edge Function（EdgeOne Pages） / Express 服务器 |
 
 ## 快速开始
 
@@ -59,7 +61,7 @@ echo-diary/
 
 ## 部署
 
-### EdgeOne Pages（推荐，免费）
+### EdgeOne Pages（推荐，免费，国内可正常访问）
 
 1. 在 EdgeOne Pages 创建项目，连接 Git 仓库
 2. 配置：
@@ -67,14 +69,6 @@ echo-diary/
    - **Output Directory**: `dist`
    - **环境变量**: `ZHIPU_API_KEY` = 你的智谱 API Key
 3. 部署
-
-### Render / Railway（免费，无函数超时限制）
-
-1. 创建 Web Service，连接 Git 仓库
-2. 配置：
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `npm start`
-   - **环境变量**: `ZHIPU_API_KEY` = 你的智谱 API Key
 
 ### 本地生产模式
 
