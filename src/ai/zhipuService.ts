@@ -14,7 +14,7 @@ import { manageContext } from './contextManager'
 // ── 配置 ──
 
 /** 智谱模型 ID */
-const MODEL = 'glm-4.5-air'
+const MODEL = 'glm-4.7'
 
 /** 代理端点 — Vite dev proxy 或生产代理服务器转发到智谱 API */
 const PROXY_URL = '/api/ai/chat/completions'
