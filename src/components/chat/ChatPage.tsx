@@ -185,9 +185,20 @@ export default function ChatPage() {
       abortRef.current = new AbortController()
       const signal = abortRef.current.signal
 
-      for await (const chunk of aiService.chatStream(messages, {
-        systemPrompt: ECHO_NUDGE_PROMPT,
-      })) {
+      // 拼接一条虚拟 user 消息，让模型有明确的回复目标
+      // 避免因对话末尾是 assistant 消息导致模型重复上一句回复
+      const nudgeTrigger: Message = {
+        id: '__nudge__',
+        role: 'user',
+        content:
+          '（用户刚才点击了"提示我写"按钮，希望你主动发起话题引导。请回顾你们刚才的聊天内容，用 Echo 的口吻自然地发一条消息，1-3句话，给一个具体的、容易接话的方向。不要问"你想聊什么"这种开放式问题。）',
+        timestamp: nowISO(),
+      }
+
+      for await (const chunk of aiService.chatStream(
+        [...messages, nudgeTrigger],
+        { systemPrompt: ECHO_NUDGE_PROMPT },
+      )) {
         if (signal.aborted) break
         if (chunk.done) break
         if (chunk.delta) {
