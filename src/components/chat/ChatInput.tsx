@@ -48,6 +48,7 @@ function SparkleIcon() {
 
 interface ChatInputProps {
   onSend: (content: string) => Promise<void>
+  onEchoNudge: () => Promise<void>
   onGenerateDiary: () => Promise<void>
   isStreaming: boolean
   isGeneratingDiary: boolean
@@ -56,6 +57,7 @@ interface ChatInputProps {
 
 export default function ChatInput({
   onSend,
+  onEchoNudge,
   onGenerateDiary,
   isStreaming,
   isGeneratingDiary,
@@ -105,11 +107,22 @@ export default function ChatInput({
     [handleSend],
   )
 
-  // Quick actions: fill textarea
+  // Quick actions
   const handleQuickAction = useCallback((prompt: string) => {
     setText(prompt)
     textareaRef.current?.focus()
   }, [])
+
+  const [isNudging, setIsNudging] = useState(false)
+  const handleNudge = useCallback(async () => {
+    if (isStreaming || isNudging) return
+    setIsNudging(true)
+    try {
+      await onEchoNudge()
+    } finally {
+      setIsNudging(false)
+    }
+  }, [onEchoNudge, isStreaming, isNudging])
 
   return (
     <div className={styles.inputArea}>
@@ -117,10 +130,10 @@ export default function ChatInput({
       <div className={styles.quickActions}>
         <button
           className={styles.quickActionBtn}
-          onClick={() => handleQuickAction('帮我回顾一下今天发生了什么')}
-          disabled={isStreaming}
+          onClick={handleNudge}
+          disabled={isStreaming || isNudging}
         >
-          💡 提示我写
+          {isNudging ? '💡 Echo 正在思考…' : '💡 提示我写'}
         </button>
         <button
           className={styles.quickActionBtn}

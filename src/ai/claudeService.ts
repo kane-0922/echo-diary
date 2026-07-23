@@ -10,8 +10,8 @@
 //   Browser-side API key exposure. Use a backend proxy for production.
 // ═══════════════════════════════════════════════════════════════════════
 
-import type { AiService, ChatStreamChunk, ChatOptions, DiaryGeneration } from './types'
-import type { Mood, Message } from '../types'
+import type { Message, Mood } from '../types'
+import type { AiService, ChatOptions, ChatStreamChunk, DiaryGeneration } from './types'
 
 export class ClaudeService implements AiService {
   // 预留：真实接入时保存 apiKey 用于初始化 Anthropic 客户端
@@ -19,10 +19,8 @@ export class ClaudeService implements AiService {
     void _apiKey
   }
 
-  async *chatStream(
-    _messages: Message[],
-    _options?: ChatOptions,
-  ): AsyncGenerator<ChatStreamChunk> {
+  // oxlint-disable-next-line require-yield
+  async *chatStream(_messages: Message[], _options?: ChatOptions): AsyncGenerator<ChatStreamChunk> {
     throw new Error('Claude integration not yet implemented. Configure your API key in Settings.')
   }
 

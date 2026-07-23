@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../contexts/AppContext'
 import { generateId, nowISO, todayDate } from '../../utils/idGenerator'
 import type { Message, DiaryEntry } from '../../types'
+import { ECHO_NUDGE_PROMPT } from '../../ai/prompts/echoNudge'
 import ChatHeader from './ChatHeader'
 import ChatMessageList from './ChatMessageList'
 import ChatInput from './ChatInput'
@@ -141,6 +142,68 @@ export default function ChatPage() {
     [handleSend],
   )
 
+  // ── Echo Nudge — Echo 主动发起话题引导 ──
+
+  const handleEchoNudge = useCallback(async () => {
+    const sessionId = state.activeChatId
+    if (!sessionId || isStreaming) return
+
+    const hasUserMessages = messages.some((m) => m.role === 'user')
+
+    // 无用户消息：Echo 直接发一条冰破消息，不需要调 AI
+    if (!hasUserMessages) {
+      const echoMsg: Message = {
+        id: generateId('msg'),
+        role: 'ai',
+        content: '嗨～你有什么想和我聊的嘛？😊',
+        timestamp: nowISO(),
+      }
+      dispatch({
+        type: 'SEND_MESSAGE',
+        payload: { sessionId, message: echoMsg },
+      })
+      return
+    }
+
+    // 有聊天记录：调 AI，让 Echo 基于上下文生成话题引导
+    const aiMsgId = generateId('msg')
+    const aiPlaceholder: Message = {
+      id: aiMsgId,
+      role: 'ai',
+      content: '',
+      timestamp: nowISO(),
+    }
+    dispatch({
+      type: 'SEND_MESSAGE',
+      payload: { sessionId, message: aiPlaceholder },
+    })
+
+    setStreamingMessageId(aiMsgId)
+    setIsStreaming(true)
+
+    try {
+      abortRef.current = new AbortController()
+      const signal = abortRef.current.signal
+
+      for await (const chunk of aiService.chatStream(messages, {
+        systemPrompt: ECHO_NUDGE_PROMPT,
+      })) {
+        if (signal.aborted) break
+        if (chunk.done) break
+        if (chunk.delta) {
+          actions.appendToLastAiMessage(sessionId, chunk.delta)
+        }
+      }
+    } catch {
+      setErrorMessageId(aiMsgId)
+      actions.showToast('error', 'Echo 暂时无法回应，请检查网络后重试')
+    } finally {
+      setIsStreaming(false)
+      setStreamingMessageId(null)
+      abortRef.current = null
+    }
+  }, [state.activeChatId, isStreaming, messages, actions, dispatch, aiService])
+
   // ── Generate Diary ──
 
   const canGenerateDiary = messages.filter((m) => m.role === 'user').length >= 1
@@ -200,6 +263,7 @@ export default function ChatPage() {
       />
       <ChatInput
         onSend={handleSend}
+        onEchoNudge={handleEchoNudge}
         onGenerateDiary={handleGenerateDiary}
         isStreaming={isStreaming}
         isGeneratingDiary={isGeneratingDiary}
