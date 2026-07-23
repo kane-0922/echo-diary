@@ -142,11 +142,6 @@ export default function Sidebar() {
         >
           <ChatIcon className={styles.navIcon} />
           <span>聊天</span>
-          {state.chatSessions.length > 0 && (
-            <span className={styles.navBadge}>
-              {state.chatSessions.length}
-            </span>
-          )}
         </button>
         <button
           className={isDiaryActive ? styles.navItemActive : styles.navItem}

@@ -29,39 +29,16 @@ function SendIcon() {
   )
 }
 
-function SparkleIcon() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-    >
-      <path d="M10 0l2.5 7.5L20 10l-7.5 2.5L10 20l-2.5-7.5L0 10l7.5-2.5z" />
-      <path
-        d="M7 4l1 3 3 1-3 1-1 3-1-3-3-1 3-1z"
-        opacity="0.5"
-      />
-    </svg>
-  )
-}
-
 interface ChatInputProps {
   onSend: (content: string) => Promise<void>
   onEchoNudge: () => Promise<void>
-  onGenerateDiary: () => Promise<void>
   isStreaming: boolean
-  isGeneratingDiary: boolean
-  canGenerateDiary: boolean
 }
 
 export default function ChatInput({
   onSend,
   onEchoNudge,
-  onGenerateDiary,
   isStreaming,
-  isGeneratingDiary,
-  canGenerateDiary,
 }: ChatInputProps) {
   const [text, setText] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -170,26 +147,6 @@ export default function ChatInput({
         </button>
       </div>
 
-      {/* Generate Diary */}
-      <div className={styles.generateRow}>
-        <button
-          className={styles.generateBtn}
-          onClick={onGenerateDiary}
-          disabled={!canGenerateDiary || isStreaming || isGeneratingDiary}
-        >
-          {isGeneratingDiary ? (
-            <>
-              <span className={styles.generateSpinner} />
-              正在生成…
-            </>
-          ) : (
-            <>
-              <SparkleIcon />
-              生成日记
-            </>
-          )}
-        </button>
-      </div>
     </div>
   )
 }

@@ -253,7 +253,12 @@ export default function ChatPage() {
 
   return (
     <div className={styles.page}>
-      <ChatHeader isStreaming={isStreaming} />
+      <ChatHeader
+        isStreaming={isStreaming}
+        onGenerateDiary={handleGenerateDiary}
+        isGeneratingDiary={isGeneratingDiary}
+        canGenerateDiary={canGenerateDiary}
+      />
       <ChatMessageList
         messages={messages}
         streamingMessageId={streamingMessageId}
@@ -264,10 +269,7 @@ export default function ChatPage() {
       <ChatInput
         onSend={handleSend}
         onEchoNudge={handleEchoNudge}
-        onGenerateDiary={handleGenerateDiary}
         isStreaming={isStreaming}
-        isGeneratingDiary={isGeneratingDiary}
-        canGenerateDiary={canGenerateDiary}
       />
     </div>
   )

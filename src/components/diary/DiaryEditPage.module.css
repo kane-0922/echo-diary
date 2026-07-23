@@ -357,7 +357,7 @@
 
 @media (max-width: 1023px) {
   .toolbar {
-    padding-left: 60px; /* room for hamburger */
+    padding-left: 60px;
   }
 }
 
