@@ -83,7 +83,9 @@
   font-family: var(--font-body);
   color: var(--text-primary);
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .searchInput::placeholder {
@@ -109,7 +111,9 @@
   border-radius: var(--radius-xs);
   color: var(--text-muted);
   cursor: pointer;
-  transition: color var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .searchClear:hover {
@@ -138,7 +142,9 @@
   font-weight: var(--font-medium);
   color: var(--text-muted);
   cursor: pointer;
-  transition: color var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .sortBtn:hover {
@@ -166,7 +172,9 @@
   color: #fff;
   background-color: var(--primary);
   cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -229,7 +237,10 @@
   border-radius: var(--radius-lg);
   background-color: var(--surface-elevated);
   cursor: pointer;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .card:hover {
@@ -321,7 +332,9 @@
   font-size: var(--text-lg);
   color: var(--text-muted);
   opacity: 0;
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .card:hover .cardArrow {
@@ -346,7 +359,9 @@
   justify-content: center;
   box-shadow: var(--shadow-lg);
   cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
   z-index: var(--z-sticky);
 }
 
