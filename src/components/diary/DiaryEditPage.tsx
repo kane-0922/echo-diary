@@ -74,7 +74,6 @@ export default function DiaryEditPage() {
 
     actions.updateDiary(updated)
     actions.showToast('success', '保存成功 ✅')
-    navigate(-1)
   }, [diary, title, content, date, mood, insight, actions, navigate])
 
   // ── Delete ──

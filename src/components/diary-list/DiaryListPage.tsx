@@ -7,6 +7,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../contexts/AppContext'
 import { useDebounce } from '../../hooks/useDebounce'
+import { generateId, nowISO, todayDate } from '../../utils/idGenerator'
 import type { DiaryEntry } from '../../types'
 import SearchBar from './SearchBar'
 import DiaryCard from './DiaryCard'
@@ -119,6 +120,22 @@ export default function DiaryListPage() {
     [navigate],
   )
 
+  const handleCreateDiary = useCallback(() => {
+    const diary: DiaryEntry = {
+      id: generateId('diary'),
+      chatSessionId: '', // 手动创建，非聊天生成
+      title: '',
+      date: todayDate(),
+      mood: null,
+      content: '',
+      aiInsight: '',
+      createdAt: nowISO(),
+      updatedAt: nowISO(),
+    }
+    actions.saveDiary(diary)
+    navigate(`/diary/${diary.id}/edit`)
+  }, [actions, navigate])
+
   const handleGoChat = useCallback(() => {
     actions.createSession()
     navigate('/chat')
@@ -155,6 +172,15 @@ export default function DiaryListPage() {
               </button>
             ))}
           </div>
+
+          <button
+            className={styles.createBtn}
+            onClick={handleCreateDiary}
+            aria-label="创建新日记"
+          >
+            <PlusIcon />
+            <span className={styles.createLabel}>创建</span>
+          </button>
         </div>
       </div>
 
@@ -197,16 +223,14 @@ export default function DiaryListPage() {
         </div>
 
         {/* New diary FAB (mobile-friendly) */}
-        {hasDiaries && (
-          <button
-            className={styles.fab}
-            onClick={handleGoChat}
-            aria-label="写新日记"
-            title="写新日记"
-          >
-            <PlusIcon />
-          </button>
-        )}
+        <button
+          className={styles.fab}
+          onClick={handleCreateDiary}
+          aria-label="写新日记"
+          title="写新日记"
+        >
+          <PlusIcon />
+        </button>
       </div>
     </div>
   )
